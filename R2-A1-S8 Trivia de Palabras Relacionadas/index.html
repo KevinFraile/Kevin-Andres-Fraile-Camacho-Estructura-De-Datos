@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Gestión de Clientes - Lista Simple</title>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
+
+  <style>
+    body {
+      background-color: #f9f9f9;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    }
+
+    .container {
+      max-width: 600px;
+      margin-top: 60px;
+      background-color: #ffffff;
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease-in-out;
+    }
+
+    .container:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .btn {
+      transition: all 0.2s ease-in-out;
+    }
+
+    .btn:hover {
+      transform: scale(1.03);
+    }
+
+    #resultado {
+      margin-top: 25px;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .list-group-item {
+      border: none;
+      background-color: #f1f1f1;
+      border-radius: 10px;
+      margin-bottom: 8px;
+      transition: background-color 0.3s ease;
+    }
+
+    .list-group-item:hover {
+      background-color: #e0e0e0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container text-center">
+    <h2 class="mb-4">📋 Gestión de Clientes</h2>
+
+    <!-- Formulario de inserción -->
+    <div class="mb-3 text-start">
+      <input type="text" id="cedula" class="form-control mb-2" placeholder="Ingrese la cédula" />
+      <input type="text" id="nombre" class="form-control mb-3" placeholder="Ingrese el nombre" />
+
+      <div class="d-grid gap-2">
+        <button class="btn btn-primary" onclick="insertarCliente()">➕ Insertar Cliente</button>
+        <button class="btn btn-success" onclick="listarClientes()">📄 Listar Clientes →</button>
+        <button class="btn btn-danger" onclick="salir()">🚪 Salir</button>
+      </div>
+    </div>
+
+    <!-- Zona donde se muestran los resultados -->
+    <div id="resultado" class="text-start"></div>
+  </div>
+
+  <script>
+    // -------------------------
+    // PROGRAMACIÓN ORIENTADA A OBJETOS (POO)
+    // -------------------------
+
+    // Clase Nodo (estructura básica de la lista enlazada simple)
+    // ✅ Representa un Tipo de Dato Abstracto (TDA) utilizado en estructuras dinámicas simples.
+    class Nodo {
+      constructor(cedula, nombre) {
+        this.cedula = cedula;
+        this.nombre = nombre;
+        this.siguiente = null; // Enlace al siguiente nodo (estructura lineal simple)
+      }
+    }
+
+    // Clase ListaSimple
+    // ✅ Implementa una lista dinámica simple (estructura lineal enlazada)
+    // ✅ Demuestra el uso de POO (clase con atributos y métodos)
+    class ListaSimple {
+      constructor() {
+        this.cabeza = null; // Inicio de la lista
+      }
+
+      // Método para insertar clientes de forma ordenada por cédula
+      // ✅ Manipula la estructura dinámica (inserta nodos en tiempo de ejecución)
+      insertarOrdenado(cedula, nombre) {
+        const nuevo = new Nodo(cedula, nombre);
+
+        // Caso 1: insertar al inicio o en lista vacía
+        if (!this.cabeza || cedula < this.cabeza.cedula) {
+          nuevo.siguiente = this.cabeza;
+          this.cabeza = nuevo;
+        } else {
+          // Buscar posición adecuada para insertar ordenadamente
+          let actual = this.cabeza;
+          while (actual.siguiente && actual.siguiente.cedula < cedula) {
+            actual = actual.siguiente;
+          }
+          nuevo.siguiente = actual.siguiente;
+          actual.siguiente = nuevo;
+        }
+      }
+
+      // Método para listar los nodos de izquierda a derecha
+      listar() {
+        let actual = this.cabeza;
+        const resultado = [];
+        while (actual) {
+          resultado.push(
+            `<li class="list-group-item">🧾 <strong>Cédula:</strong> ${actual.cedula} | <strong>Nombre:</strong> ${actual.nombre}</li>`
+          );
+          actual = actual.siguiente;
+        }
+        return resultado;
+      }
+    }
+
+    // Crear una instancia de ListaSimple (estructura lineal dinámica)
+    const listaClientes = new ListaSimple();
+
+    // -------------------------
+    // FUNCIONES DE LA INTERFAZ
+    // -------------------------
+
+    // Función para insertar un nuevo cliente
+    function insertarCliente() {
+      const cedula = document.getElementById("cedula").value.trim();
+      const nombre = document.getElementById("nombre").value.trim();
+
+      if (!cedula || !nombre) {
+        alert("Por favor, ingrese ambos campos.");
+        return;
+      }
+
+      listaClientes.insertarOrdenado(cedula, nombre);
+      alert("✅ Cliente insertado correctamente.");
+      document.getElementById("cedula").value = "";
+      document.getElementById("nombre").value = "";
+    }
+
+    // Función para mostrar todos los clientes registrados
+    function listarClientes() {
+      const resultado = listaClientes.listar();
+      const contenedor = document.getElementById("resultado");
+      contenedor.innerHTML = resultado.length
+        ? `<ul class="list-group">${resultado.join("")}</ul>`
+        : "⚠️ No hay clientes registrados aún.";
+    }
+
+    // Función para 'salir' de la app (recargar)
+    function salir() {
+      if (confirm("¿Deseas cerrar la aplicación?")) {
+        alert("👋 Aplicación finalizada.");
+        window.location.reload();
+      }
+    }
+  </script>
+</body>
+</html>
