@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,24 +9,51 @@
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
 
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Tourney:ital,wght@0,100..900;1,100..900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Tourney:ital,wght@0,100..900;1,100..900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Exo:ital,wght@0,100..900;1,100..900&display=swap');
+
     body {
       background-color: #f9f9f9;
       font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-image: url("blob-scene-haikei (4).svg");
+      background-size: cover;
+      /* Esto asegura que la imagen cubra toda el área visible */
+      background-position: center center;
+      /* Esto centra la imagen en el área visible */
+      background-repeat: no-repeat;
+
+      overflow: hidden;
+
+      font-family: "Exo", sans-serif;
+      font-optical-sizing: auto;
+
+      font-style: normal;
+
+    }
+
+    h2 {
+      font-family: "Tourney", sans-serif;
+      font-optical-sizing: auto;
+
+      font-style: normal;
+      font-variation-settings: "wdth" 100;
     }
 
     .container {
       max-width: 600px;
-      margin-top: 60px;
+      margin-top: 210px;
       background-color: #ffffff;
       padding: 30px;
       border-radius: 20px;
-      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.192);
       transition: all 0.3s ease-in-out;
+      min-height: 300px;
     }
 
     .container:hover {
       transform: translateY(-3px);
-      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.15);
+      box-shadow: 0 16px 40px rgba(0, 0, 0, 0.274);
     }
 
     .btn {
@@ -46,6 +74,7 @@
         opacity: 0;
         transform: translateY(10px);
       }
+
       to {
         opacity: 1;
         transform: translateY(0);
@@ -63,26 +92,489 @@
     .list-group-item:hover {
       background-color: #e0e0e0;
     }
+
+    /*OJOS*/
+
+    /* From Uiverse.io by BlackisPlay */
+    #ghost {
+      position: relative;
+      scale: 0.8;
+      margin: 30px;
+      left: -30px;
+    }
+
+    #red {
+      animation: upNDown infinite 0.5s;
+      position: relative;
+      width: 140px;
+      height: 140px;
+      display: grid;
+      grid-template-columns: repeat(14, 1fr);
+      grid-template-rows: repeat(14, 1fr);
+      grid-column-gap: 0px;
+      grid-row-gap: 0px;
+      grid-template-areas:
+        "a1  a2  a3  a4  a5  top0  top0  top0  top0  a10 a11 a12 a13 a14"
+        "b1  b2  b3  top1 top1 top1 top1 top1 top1 top1 top1 b12 b13 b14"
+        "c1 c2 top2 top2 top2 top2 top2 top2 top2 top2 top2 top2 c13 c14"
+        "d1 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 d14"
+        "e1 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 e14"
+        "f1 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 top3 f14"
+        "top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4"
+        "top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4"
+        "top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4"
+        "top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4"
+        "top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4"
+        "top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4 top4"
+        "st0 st0 an4 st1 an7 st2 an10 an10 st3 an13 st4 an16 st5 st5"
+        "an1 an2 an3 an5 an6 an8 an9 an9 an11 an12 an14 an15 an17 an18";
+    }
+
+    @keyframes upNDown {
+
+      0%,
+      49% {
+        transform: translateY(0px);
+      }
+
+      50%,
+      100% {
+        transform: translateY(-10px);
+      }
+    }
+
+    #top0,
+    #top1,
+    #top2,
+    #top3,
+    #top4,
+    #st0,
+    #st1,
+    #st2,
+    #st3,
+    #st4,
+    #st5 {
+      background-color: red;
+    }
+
+    #top0 {
+      grid-area: top0;
+    }
+
+    #top1 {
+      grid-area: top1;
+    }
+
+    #top2 {
+      grid-area: top2;
+    }
+
+    #top3 {
+      grid-area: top3;
+    }
+
+    #top4 {
+      grid-area: top4;
+    }
+
+    #st0 {
+      grid-area: st0;
+    }
+
+    #st1 {
+      grid-area: st1;
+    }
+
+    #st2 {
+      grid-area: st2;
+    }
+
+    #st3 {
+      grid-area: st3;
+    }
+
+    #st4 {
+      grid-area: st4;
+    }
+
+    #st5 {
+      grid-area: st5;
+    }
+
+    #an1 {
+      grid-area: an1;
+      animation: flicker0 infinite 0.5s;
+    }
+
+    #an18 {
+      grid-area: an18;
+      animation: flicker0 infinite 0.5s;
+    }
+
+    #an2 {
+      grid-area: an2;
+      animation: flicker1 infinite 0.5s;
+    }
+
+    #an17 {
+      grid-area: an17;
+      animation: flicker1 infinite 0.5s;
+    }
+
+    #an3 {
+      grid-area: an3;
+      animation: flicker1 infinite 0.5s;
+    }
+
+    #an16 {
+      grid-area: an16;
+      animation: flicker1 infinite 0.5s;
+    }
+
+    #an4 {
+      grid-area: an4;
+      animation: flicker1 infinite 0.5s;
+    }
+
+    #an15 {
+      grid-area: an15;
+      animation: flicker1 infinite 0.5s;
+    }
+
+    #an6 {
+      grid-area: an6;
+      animation: flicker0 infinite 0.5s;
+    }
+
+    #an12 {
+      grid-area: an12;
+      animation: flicker0 infinite 0.5s;
+    }
+
+    #an7 {
+      grid-area: an7;
+      animation: flicker0 infinite 0.5s;
+    }
+
+    #an13 {
+      grid-area: an13;
+      animation: flicker0 infinite 0.5s;
+    }
+
+    #an9 {
+      grid-area: an9;
+      animation: flicker1 infinite 0.5s;
+    }
+
+    #an10 {
+      grid-area: an10;
+      animation: flicker1 infinite 0.5s;
+    }
+
+    #an8 {
+      grid-area: an8;
+      animation: flicker0 infinite 0.5s;
+    }
+
+    #an11 {
+      grid-area: an11;
+      animation: flicker0 infinite 0.5s;
+    }
+
+    @keyframes flicker0 {
+
+      0%,
+      49% {
+        background-color: red;
+      }
+
+      50%,
+      100% {
+        background-color: transparent;
+      }
+    }
+
+    @keyframes flicker1 {
+
+      0%,
+      49% {
+        background-color: transparent;
+      }
+
+      50%,
+      100% {
+        background-color: red;
+      }
+    }
+
+    #eye {
+      width: 40px;
+      height: 50px;
+      position: absolute;
+      top: 30px;
+      left: 10px;
+    }
+
+    #eye::before {
+      content: "";
+      background-color: white;
+      width: 20px;
+      height: 50px;
+      transform: translateX(10px);
+      display: block;
+      position: absolute;
+    }
+
+    #eye::after {
+      content: "";
+      background-color: white;
+      width: 40px;
+      height: 30px;
+      transform: translateY(10px);
+      display: block;
+      position: absolute;
+    }
+
+    #eye1 {
+      width: 40px;
+      height: 50px;
+      position: absolute;
+      top: 30px;
+      right: 30px;
+    }
+
+    #eye1::before {
+      content: "";
+      background-color: white;
+      width: 20px;
+      height: 50px;
+      transform: translateX(10px);
+      display: block;
+      position: absolute;
+    }
+
+    #eye1::after {
+      content: "";
+      background-color: white;
+      width: 40px;
+      height: 30px;
+      transform: translateY(10px);
+      display: block;
+      position: absolute;
+    }
+
+    #pupil {
+      width: 20px;
+      height: 20px;
+      background-color: blue;
+      position: absolute;
+      top: 50px;
+      left: 10px;
+      z-index: 1;
+      animation: eyesMovement infinite 3s;
+    }
+
+    #pupil1 {
+      width: 20px;
+      height: 20px;
+      background-color: blue;
+      position: absolute;
+      top: 50px;
+      right: 50px;
+      z-index: 1;
+      animation: eyesMovement infinite 3s;
+    }
+
+    @keyframes eyesMovement {
+
+      0%,
+      49% {
+        transform: translateX(0px);
+      }
+
+      50%,
+      99% {
+        transform: translateX(10px);
+      }
+
+      100% {
+        transform: translateX(0px);
+      }
+    }
+
+    #shadow {
+      background-color: black;
+      width: 140px;
+      height: 140px;
+      position: absolute;
+      border-radius: 50%;
+      transform: rotateX(80deg);
+      filter: blur(20px);
+      top: 80%;
+      animation: shadowMovement infinite 0.5s;
+    }
+
+    @keyframes shadowMovement {
+
+      0%,
+      49% {
+        opacity: 0.5;
+      }
+
+      50%,
+      100% {
+        opacity: 0.2;
+      }
+    }
+
+    .centrar {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .ver {
+      display: block;
+    }
+
+    .ocultar {
+      display: none;
+    }
+
+    .loader {
+      width: fit-content;
+      font-weight: bold;
+      font-family: monospace;
+      font-size: 30px;
+      background: radial-gradient(circle closest-side, #000 94%, #0000) right/calc(200% - 1em) 100%;
+      animation: l24 1s infinite alternate linear;
+    }
+
+    .loader::before {
+      content: "Loading...";
+      line-height: 1em;
+      color: #0000;
+      background: inherit;
+      background-image: radial-gradient(circle closest-side, #fff 94%, #000);
+      -webkit-background-clip: text;
+      background-clip: text;
+    }
+
+    @keyframes l24 {
+      100% {
+        background-position: left
+      }
+    }
   </style>
+
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+
 </head>
+
 <body>
-  <div class="container text-center">
-    <h2 class="mb-4">📋 Gestión de Clientes</h2>
 
-    <!-- Formulario de inserción -->
-    <div class="mb-3 text-start">
-      <input type="text" id="cedula" class="form-control mb-2" placeholder="Ingrese la cédula" />
-      <input type="text" id="nombre" class="form-control mb-3" placeholder="Ingrese el nombre" />
 
-      <div class="d-grid gap-2">
-        <button class="btn btn-primary" onclick="insertarCliente()">➕ Insertar Cliente</button>
-        <button class="btn btn-success" onclick="listarClientes()">📄 Listar Clientes →</button>
-        <button class="btn btn-danger" onclick="salir()">🚪 Salir</button>
+  <div class="container text-center animate__animated animate__zoomInDown centrar">
+    <div id="fantasma" class="ocultar centrar">
+      <div id="ghost" class="centrar">
+        <div id="red">
+          <div id="pupil"></div>
+          <div id="pupil1"></div>
+          <div id="eye"></div>
+          <div id="eye1"></div>
+          <div id="top0"></div>
+          <div id="top1"></div>
+          <div id="top2"></div>
+          <div id="top3"></div>
+          <div id="top4"></div>
+          <div id="st0"></div>
+          <div id="st1"></div>
+          <div id="st2"></div>
+          <div id="st3"></div>
+          <div id="st4"></div>
+          <div id="st5"></div>
+          <div id="an1"></div>
+          <div id="an2"></div>
+          <div id="an3"></div>
+          <div id="an4"></div>
+          <div id="an5"></div>
+          <div id="an6"></div>
+          <div id="an7"></div>
+          <div id="an8"></div>
+          <div id="an9"></div>
+          <div id="an10"></div>
+          <div id="an11"></div>
+          <div id="an12"></div>
+          <div id="an13"></div>
+          <div id="an14"></div>
+          <div id="an15"></div>
+          <div id="an16"></div>
+          <div id="an17"></div>
+          <div id="an18"></div>
+        </div>
+        <div id="shadow"></div>
       </div>
+      <br>
+      <div class="centrar">
+
+        <div class="loader"></div>
+      </div>
+
+      <br><br><br>
+
     </div>
 
-    <!-- Zona donde se muestran los resultados -->
-    <div id="resultado" class="text-start"></div>
+    <div id="formulario">
+      <h2 class="mb-4">📋 Gestión de Clientes</h2>
+
+      <!-- Formulario de inserción -->
+      <div class="mb-3 text-start">
+        <input type="number" id="cedula" class="form-control mb-2" placeholder="Ingrese la cédula" />
+        <input type="text" id="nombre" class="form-control mb-3" placeholder="Ingrese el nombre" />
+
+        <div class="d-grid gap-2">
+          <button class="btn btn-success" onclick="insertarCliente()">➕ Insertar Cliente</button>
+
+          <div class="row">
+
+            <div class="col-6 mt-2">
+              <button class="btn btn-primary w-100" onclick="listarClientes()">📄 Listar Clientes derecha</button>
+            </div>
+            <div class="col-6 mt-2">
+              <button class="btn btn-warning w-100" onclick="listarClientesIzquierda()">📄 Listar Clientes
+                izquierda</button>
+            </div>
+
+            <div class="col-6 mt-2">
+              <button class="btn btn-info w-100" onclick="listarClientesBurbuja()">📄 Listar (Método burbuja)</button>
+            </div>
+            <div class="col-6 mt-2">
+              <button class="btn btn-secondary w-100" onclick="listarClientesSecuencial()">📄 Listar (Método
+                secuencial)</button>
+            </div>
+            <div class="col-6 mt-2">
+              <button class="btn btn-dark w-100" onclick="listarClientesQuicksort()">📄 Listar (Método
+                quicksort)</button>
+            </div>
+
+            <div class="col-6 mt-2">
+              <button class="btn btn-dark w-100" onclick="desordenarLista()">📄 Desordenar</button>
+            </div>
+
+          </div>
+
+
+
+          <button class="btn btn-danger" onclick="salir()">🚪 Salir</button>
+        </div>
+      </div>
+
+      <!-- Zona donde se muestran los resultados -->
+      <div id="resultado" class="text-start"></div>
+    </div>
+
+
+
   </div>
 
   <script>
@@ -145,12 +637,40 @@
     // Crear una instancia de ListaSimple (estructura lineal dinámica)
     const listaClientes = new ListaSimple();
 
+    function load() {
+
+      let fantasma = document.getElementById('fantasma');
+      fantasma.classList.remove('ocultar');
+
+      fantasma.classList.add('ver');
+
+      let formulario = document.getElementById('formulario');
+      formulario.classList.remove('ver');
+      formulario.classList.add('ocultar');
+
+      setTimeout(() => {
+        let fantasma = document.getElementById('fantasma');
+        fantasma.classList.remove('ver');
+
+        fantasma.classList.add('ocultar');
+
+        let formulario = document.getElementById('formulario');
+        formulario.classList.remove('ocultar');
+        formulario.classList.add('ver');
+
+      }, 2000);
+
+    }
+
     // -------------------------
     // FUNCIONES DE LA INTERFAZ
     // -------------------------
 
     // Función para insertar un nuevo cliente
     function insertarCliente() {
+
+
+
       const cedula = document.getElementById("cedula").value.trim();
       const nombre = document.getElementById("nombre").value.trim();
 
@@ -159,20 +679,189 @@
         return;
       }
 
-      listaClientes.insertarOrdenado(cedula, nombre);
-      alert("✅ Cliente insertado correctamente.");
-      document.getElementById("cedula").value = "";
-      document.getElementById("nombre").value = "";
+      load();
+
+      setTimeout(() => {
+
+        listaClientes.insertarOrdenado(parseInt(cedula), nombre);
+        alert("✅ Cliente insertado correctamente.");
+        document.getElementById("cedula").value = "";
+        document.getElementById("nombre").value = "";
+
+        listarClientes()
+      }, 1000);
+
     }
+
 
     // Función para mostrar todos los clientes registrados
     function listarClientes() {
+
+      load();
+
       const resultado = listaClientes.listar();
       const contenedor = document.getElementById("resultado");
       contenedor.innerHTML = resultado.length
         ? `<ul class="list-group">${resultado.join("")}</ul>`
         : "⚠️ No hay clientes registrados aún.";
+
+
     }
+
+    // Función para mostrar todos los clientes registrados
+    function listarClientesIzquierda() {
+
+      load();
+
+      const resultado = listaClientes.listar().reverse();
+      const contenedor = document.getElementById("resultado");
+      contenedor.innerHTML = resultado.length
+        ? `<ul class="list-group">${resultado.join("")}</ul>`
+        : "⚠️ No hay clientes registrados aún.";
+    }
+
+    // Función para listar los clientes utilizando el método de ordenamiento burbuja
+    function listarClientesBurbuja() {
+      load();
+
+      // Convertimos la lista a un arreglo de objetos
+      let clientes = [];
+      let actual = listaClientes.cabeza;
+      while (actual) {
+        clientes.push(actual);
+        actual = actual.siguiente;
+      }
+
+      // Aplicamos el algoritmo de ordenamiento burbuja por la cédula
+      for (let i = 0; i < clientes.length - 1; i++) {
+        for (let j = 0; j < clientes.length - 1 - i; j++) {
+          if (clientes[j].cedula > clientes[j + 1].cedula) {
+            // Intercambiamos los elementos si están en el orden incorrecto
+            let temp = clientes[j];
+            clientes[j] = clientes[j + 1];
+            clientes[j + 1] = temp;
+          }
+        }
+      }
+
+      // Generamos el HTML para mostrar los clientes ordenados
+      const resultado = clientes.map(
+        (cliente) =>
+          `<li class="list-group-item">🧾 <strong>Cédula:</strong> ${cliente.cedula} | <strong>Nombre:</strong> ${cliente.nombre}</li>`
+      );
+
+      const contenedor = document.getElementById("resultado");
+      contenedor.innerHTML =
+        resultado.length > 0
+          ? `<ul class="list-group">${resultado.join("")}</ul>`
+          : "⚠️ No hay clientes registrados aún.";
+    }
+
+    // Función para listar los clientes de manera secuencial (sin orden)
+    function listarClientesSecuencial() {
+      load();
+
+      // Simplemente recorremos la lista tal como está, sin hacer ningún tipo de ordenamiento
+      let actual = listaClientes.cabeza;
+      const resultado = [];
+      while (actual) {
+        resultado.push(
+          `<li class="list-group-item">🧾 <strong>Cédula:</strong> ${actual.cedula} | <strong>Nombre:</strong> ${actual.nombre}</li>`
+        );
+        actual = actual.siguiente;
+      }
+
+      const contenedor = document.getElementById("resultado");
+      contenedor.innerHTML = resultado.length
+        ? `<ul class="list-group">${resultado.join("")}</ul>`
+        : "⚠️ No hay clientes registrados aún.";
+    }
+
+    function listarClientesQuicksort() {
+      load();
+
+      // Convertimos la lista a un arreglo de objetos
+      let clientes = [];
+      let actual = listaClientes.cabeza;
+      while (actual) {
+        clientes.push(actual);
+        actual = actual.siguiente;
+      }
+
+      // Función de quicksort
+      function quicksort(arr) {
+        if (arr.length <= 1) return arr;
+
+        // Seleccionamos un pivote aleatorio
+        const pivotIndex = Math.floor(Math.random() * arr.length);
+        const pivot = arr[pivotIndex].cedula;
+
+        console.log(pivot);
+        
+
+        const left = [];
+        const right = [];
+
+        for (let i = 0; i < arr.length; i++) {
+          if (i !== pivotIndex) {  // No compararemos el pivote
+            if (arr[i].cedula < pivot) {
+              left.push(arr[i]);
+            } else {
+              right.push(arr[i]);
+            }
+          }
+
+          console.log(left);
+          console.log(right);
+          
+          
+        }
+
+        // Recursivamente ordenamos las sublistas y agregamos el pivote en el medio
+        return [...quicksort(left), arr[pivotIndex], ...quicksort(right)];
+      }
+
+      // Aplicamos el quicksort a la lista de clientes
+      const clientesOrdenados = quicksort(clientes);
+
+      // Generamos el HTML para mostrar los clientes ordenados
+      const resultado = clientesOrdenados.map(
+        (cliente) =>
+          `<li class="list-group-item">🧾 <strong>Cédula:</strong> ${cliente.cedula} | <strong>Nombre:</strong> ${cliente.nombre}</li>`
+      );
+
+      const contenedor = document.getElementById("resultado");
+      contenedor.innerHTML =
+        resultado.length > 0
+          ? `<ul class="list-group">${resultado.join("")}</ul>`
+          : "⚠️ No hay clientes registrados aún.";
+    }
+
+    // Función para desordenar la lista (mezclar los elementos aleatoriamente)
+    function desordenarLista() {
+      load();
+
+      const resultado = listaClientes.listar();
+
+
+      // Función para desordenar el array de forma aleatoria (barajado de Fisher-Yates)
+      function shuffleArray(array) {
+        for (let i = array.length - 1; i > 0; i--) {
+          const j = Math.floor(Math.random() * (i + 1)); // Generar un índice aleatorio
+          [array[i], array[j]] = [array[j], array[i]]; // Intercambiar los elementos
+        }
+      }
+
+      // Desordenar el array
+      shuffleArray(resultado);
+
+
+      const contenedor = document.getElementById("resultado");
+      contenedor.innerHTML = resultado.length
+        ? `<ul class="list-group">${resultado.join("")}</ul>`
+        : "⚠️ No hay clientes registrados aún.";
+    }
+
 
     // Función para 'salir' de la app (recargar)
     function salir() {
@@ -183,4 +872,5 @@
     }
   </script>
 </body>
+
 </html>

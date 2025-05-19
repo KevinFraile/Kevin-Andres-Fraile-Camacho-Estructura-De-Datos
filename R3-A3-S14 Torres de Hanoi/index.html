@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Torres de Hanoi</title>
+    <style>
+        /* Estilos generales del cuerpo del documento */
+        body {
+            font-family: 'Segoe UI', sans-serif;
+            background: linear-gradient(to bottom, #ecf0f1, #ffffff);
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        /* Título principal */
+        h1 {
+            color: #2c3e50;
+        }
+
+        /* Controles (botones y contador de discos) */
+        .controls {
+            margin-bottom: 20px;
+        }
+
+        .controls span {
+            font-weight: bold;
+            color: #2c3e50;
+        }
+
+        /* Botones estilizados */
+        button {
+            margin: 5px;
+            padding: 10px 16px;
+            font-size: 15px;
+            background-color: #34495e;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+            transition: background-color 0.3s;
+        }
+
+        button:hover {
+            background-color: #2c3e50;
+        }
+
+        /* Contenedor principal de las tres torres */
+        .towers-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        /* Estilos de cada torre */
+        .tower {
+            background: #c9b29b;
+            width: 160px;
+            height: 320px;
+            padding: 5px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column-reverse;
+            /* Muy importante: discos se muestran de abajo hacia arriba */
+            justify-content: flex-start;
+            align-items: center;
+            position: relative;
+            box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Título dentro de cada torre */
+        .tower h3 {
+            color: #fff;
+            background-color: #7f675b;
+            padding: 5px;
+            margin: 0 0 5px;
+            border-radius: 5px;
+            width: 100%;
+            text-align: center;
+        }
+
+        /* Estilo visual de cada disco */
+        .disk {
+            height: 24px;
+            margin: 4px 0;
+            border-radius: 8px;
+            text-align: center;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 3px 6px rgba(0, 0, 0, 0.2);
+        }
+
+        /* Contenedor del log de movimientos */
+        .log {
+            margin-top: 30px;
+            max-width: 700px;
+            background: #ffffff;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            border-radius: 5px;
+            margin-left: auto;
+            margin-right: auto;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            max-height: 300px;
+            overflow-y: auto;
+            text-align: left;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Torres de Hanoi</h1>
+
+    <!-- Botones para añadir, quitar discos y ejecutar la simulación -->
+    <div class="controls">
+        <span>Discos actuales: <span id="disk-count">3</span></span><br>
+        <button onclick="addDisk()">➕ Añadir piso</button>
+        <button onclick="removeDisk()">➖ Quitar piso</button>
+        <button onclick="startHanoi()">▶️ Iniciar Hanoi</button>
+    </div>
+
+    <!-- Contenedor de las tres torres A, B y C -->
+    <div class="towers-container">
+        <div class="tower" id="A">
+            <h3>Torre A</h3>
+        </div>
+        <div class="tower" id="B">
+            <h3>Torre B</h3>
+        </div>
+        <div class="tower" id="C">
+            <h3>Torre C</h3>
+        </div>
+    </div>
+
+    <!-- Contenedor donde se muestran los pasos del algoritmo -->
+    <div id="log" class="log"></div>
+
+    <script>
+        // Variables globales
+        let diskCount = 3; // Número inicial de discos
+        let delay = 0; // Control de tiempo para animación por pasos
+
+        // Colores únicos para cada disco (hasta 8)
+        const colors = [
+            '#e74c3c', // rojo
+            '#f39c12', // naranja
+            '#f1c40f', // amarillo
+            '#2ecc71', // verde
+            '#1abc9c', // turquesa
+            '#3498db', // azul
+            '#9b59b6', // morado
+            '#34495e'  // gris oscuro
+        ];
+
+        // Actualiza visualmente el contador de discos
+        function updateDiskDisplay() {
+            document.getElementById('disk-count').textContent = diskCount;
+        }
+
+        // Añade un disco (máximo 8)
+        function addDisk() {
+            if (diskCount < 8) {
+                diskCount++;
+                updateDiskDisplay();
+            } else {
+                alert("Máximo 8 discos permitido.");
+            }
+        }
+
+        // Elimina un disco (mínimo 1)
+        function removeDisk() {
+            if (diskCount > 1) {
+                diskCount--;
+                updateDiskDisplay();
+            } else {
+                alert("Mínimo 1 disco requerido.");
+            }
+        }
+
+        // Borra los discos de las tres torres
+        function clearTowers() {
+            ['A', 'B', 'C'].forEach(id => {
+                const tower = document.getElementById(id);
+                tower.innerHTML = `<h3>Torre ${id}</h3>`;
+            });
+        }
+
+        // Inicia la simulación de Torres de Hanoi
+        function startHanoi() {
+            clearTowers(); // Limpia torres
+            delay = 0; // Reinicia la animación
+
+            const source = 'A', aux = 'B', target = 'C';
+            const towerA = document.getElementById(source);
+
+            // Crea e inserta los discos en Torre A (del más grande al más pequeño)
+            for (let i = diskCount; i >= 1; i--) {
+                const disk = document.createElement('div');
+                disk.className = 'disk';
+                disk.style.width = `${i * 25 + 3}px`; // Ancho proporcional al número
+                disk.style.backgroundColor = colors[i - 1]; // Color único por disco
+                disk.setAttribute('data-size', i); // Atributo para identificar tamaño
+                disk.textContent = i; // Número visible en el disco
+                towerA.appendChild(disk); // Agrega el disco (aparece abajo)
+            }
+
+            setTimeout(() => {
+                // Reinicia log de movimientos
+                document.getElementById('log').innerHTML = "<strong>Movimientos:</strong><br>";
+
+                // Ejecuta el algoritmo recursivo
+                hanoi(diskCount, source, target, aux);
+            }, 1000);
+
+
+        }
+
+        // Función recursiva de Torres de Hanoi
+        // n -> diskCount
+        // from -> torre A
+        // to -> torre C
+        // aux -> torre B
+        function hanoi(n, from, to, aux) {
+            // Caso base: si solo hay un disco que mover
+            if (n === 1) {
+                logMove(n, from, to);   // Registrar el movimiento del disco 1 en consola o historial
+                moveDisk(from, to);     // Mover físicamente el disco desde la torre 'from' a la torre 'to'
+                return;                 // Terminar la llamada recursiva en este punto
+            }
+
+            console.log(n);
+            // Paso 1: Mover los n-1 discos superiores de la torre 'from' a la torre 'aux', usando 'to' como torre auxiliar
+            hanoi(n - 1, from, aux, to);
+            
+            
+
+            // Paso 2: Mover el disco más grande (el disco n) de la torre 'from' a la torre 'to'
+            logMove(n, from, to);       // Registrar el movimiento en el historial
+            moveDisk(from, to);         // Mover físicamente el disco
+
+            // Paso 3: Mover los n-1 discos de la torre 'aux' a la torre 'to', usando 'from' como torre auxiliar
+            hanoi(n - 1, aux, to, from);
+
+            console.log(n, '.');
+            
+        }
+
+
+        // Muestra en pantalla el movimiento de un disco
+        function logMove(disk, from, to) {
+            const log = document.getElementById('log');
+            setTimeout(() => {
+                log.innerHTML += `Mover disco ${disk} de ${from} a ${to}<br>`;
+                log.scrollTop = log.scrollHeight;
+            }, delay);
+        }
+
+        // Mueve el elemento visual de una torre a otra
+        function moveDisk(fromId, toId) {
+            setTimeout(() => {
+                // Obtiene la torre de origen utilizando su ID (por ejemplo, 'A', 'B' o 'C')
+                const fromTower = document.getElementById(fromId);
+
+                // Obtiene la torre de destino utilizando su ID
+                const toTower = document.getElementById(toId);
+
+                // Obtiene todos los discos dentro de la torre de origen y los convierte en un array
+                // Esto permite manipular fácilmente los discos con métodos de array como `.pop()` o acceso por índice
+                const disks = Array.from(fromTower.querySelectorAll('.disk'));
+
+                if (disks.length > 0) {
+                    const diskToMove = disks[disks.length - 1]; // Último (arriba)
+                    toTower.appendChild(diskToMove); // Lo agrega abajo en torre destino
+                }
+            }, delay);
+
+            delay += 600; // Aumenta tiempo para próximos movimientos
+        }
+    </script>
+</body>
+
+</html>
