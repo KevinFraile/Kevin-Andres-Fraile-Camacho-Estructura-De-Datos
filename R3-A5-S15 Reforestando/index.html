@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>Árbol Binario Ordenado</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: linear-gradient(to right, #4facfe, #00f2fe);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      background: #fff;
+      border-radius: 20px;
+      padding: 30px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+      width: 100%;
+      max-width: 600px;
+      transition: transform 0.3s ease-in-out;
+      animation: fadeIn 1s ease-out;
+    }
+
+    .container:hover {
+      transform: translateY(-5px);
+    }
+
+    h1 {
+      text-align: center;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    input[type="number"] {
+      width: 100%;
+      padding: 10px;
+      margin-bottom: 15px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: border 0.3s;
+    }
+
+    input[type="number"]:focus {
+      border-color: #4facfe;
+      outline: none;
+    }
+
+    button {
+      padding: 10px 20px;
+      margin: 5px 5px 15px 0;
+      background-color: #4facfe;
+      border: none;
+      color: white;
+      font-size: 14px;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: background-color 0.3s ease, transform 0.2s;
+    }
+
+    button:hover {
+      background-color: #00c6ff;
+      transform: scale(1.05);
+    }
+
+    pre {
+      background: #f9f9f9;
+      padding: 15px;
+      border-radius: 10px;
+      border-left: 5px solid #4facfe;
+      font-family: monospace;
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Árbol Binario Ordenado</h1>
+    <input type="number" id="inputDato" placeholder="Ingrese un dato">
+    <div>
+      <button onclick="insertarDato()">Insertar dato</button>
+      <button onclick="mostrarInOrden()">In orden</button>
+      <button onclick="mostrarPostOrden()">Post orden</button>
+      <button onclick="mostrarPreOrden()">Pre orden</button>
+      <button onclick="salir()">Salir</button>
+    </div>
+    <pre id="salida">Esperando datos...</pre>
+  </div>
+
+  <script>
+    class Nodo {
+      constructor(dato) {
+        this.dato = dato;
+        this.izq = null;
+        this.der = null;
+      }
+    }
+
+    class ArbolBinario {
+      constructor() {
+        this.raiz = null;
+      }
+
+      insertar(dato) {
+        const nuevo = new Nodo(dato);
+        if (!this.raiz) {
+          this.raiz = nuevo;
+        } else {
+          this._insertarNodo(this.raiz, nuevo);
+        }
+      }
+
+      _insertarNodo(nodo, nuevo) {
+        if (nuevo.dato < nodo.dato) {
+          if (!nodo.izq) nodo.izq = nuevo;
+          else this._insertarNodo(nodo.izq, nuevo);
+        } else {
+          if (!nodo.der) nodo.der = nuevo;
+          else this._insertarNodo(nodo.der, nuevo);
+        }
+      }
+
+      inOrden(nodo = this.raiz, resultado = []) {
+        if (nodo) {
+          this.inOrden(nodo.izq, resultado);
+          resultado.push(nodo.dato);
+          this.inOrden(nodo.der, resultado);
+        }
+        return resultado;
+      }
+
+      postOrden(nodo = this.raiz, resultado = []) {
+        if (nodo) {
+          this.postOrden(nodo.izq, resultado);
+          this.postOrden(nodo.der, resultado);
+          resultado.push(nodo.dato);
+        }
+        return resultado;
+      }
+
+      preOrden(nodo = this.raiz, resultado = []) {
+        if (nodo) {
+          resultado.push(nodo.dato);
+          this.preOrden(nodo.izq, resultado);
+          this.preOrden(nodo.der, resultado);
+        }
+        return resultado;
+      }
+    }
+
+    const arbol = new ArbolBinario();
+
+    function insertarDato() {
+      const dato = parseInt(document.getElementById("inputDato").value);
+      if (!isNaN(dato)) {
+        arbol.insertar(dato);
+        document.getElementById("inputDato").value = "";
+        mostrarMensaje("Dato insertado: " + dato);
+      } else {
+        mostrarMensaje("Ingrese un número válido.");
+      }
+    }
+
+    function mostrarInOrden() {
+      mostrarMensaje("In orden: " + arbol.inOrden().join(", "));
+    }
+
+    function mostrarPostOrden() {
+      mostrarMensaje("Post orden: " + arbol.postOrden().join(", "));
+    }
+
+    function mostrarPreOrden() {
+      mostrarMensaje("Pre orden: " + arbol.preOrden().join(", "));
+    }
+
+    function salir() {
+      mostrarMensaje("Saliendo del programa...");
+    }
+
+    function mostrarMensaje(msg) {
+      document.getElementById("salida").textContent = msg;
+    }
+  </script>
+</body>
+</html>
